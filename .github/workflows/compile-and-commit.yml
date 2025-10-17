@@ -1,0 +1,77 @@
+name: Compile Circom and Commit Artifacts
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true # so we can push commits
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          npm ci || npm install
+
+      - name: Build circom from source (fallback)
+        run: |
+          set -euo pipefail
+          echo "Cloning circom source..."
+          git clone --depth 1 https://github.com/iden3/circom.git circom-src
+          cd circom-src
+          echo "Installing circom build deps (npm)..."
+          npm ci
+          echo "Attempting common build scripts (build / compile / build:release)..."
+          if npm run build --silent; then
+            echo "Built with 'npm run build'"
+          elif npm run compile --silent; then
+            echo "Built with 'npm run compile'"
+          elif npm run build:release --silent; then
+            echo "Built with 'npm run build:release'"
+          else
+            echo "No known build script succeeded; printing package.json for debugging"
+            cat package.json
+            echo "Attempting 'npm pack' as a last resort..."
+            npm pack || true
+          fi
+          echo "Searching for compiled circom binary..."
+          BIN_PATH=$(find . -type f -name circom -print -o -name 'circom*' -print | head -n 1 || true)
+          if [ -z "${BIN_PATH}" ]; then
+            echo "Could not find built circom binary. Listing tree for debugging:" >&2
+            find . -maxdepth 3 -ls
+            exit 1
+          fi
+          echo "Found circom at: ${BIN_PATH}"
+          cp "${BIN_PATH}" ../circom
+          cd ..
+          chmod +x circom
+          ./circom --version || true
+
+      - name: Compile circuit
+        run: |
+          ./circom zk-circuit/circuit.circom --r1cs --wasm --sym --c -o zk-circuit
+
+      - name: Generate witness and keys (snarkjs)
+        run: |
+          cd zk-circuit
+          # write a simple input.json for the compile step
+          echo '{"publicRepos":5}' > input.json
+          npm install --no-audit --no-fund
+          npx --yes snarkjs groth16 setup circuit.r1cs ../powersOfTau28_hez_final_12.ptau circuit_0000.zkey || true
+          # We don't always need to run full zkey steps in CI. The main goal is to produce circuit_js/ and circuit.r1cs
+
+      - name: Commit compiled artifacts
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add zk-circuit/circuit.r1cs zk-circuit/circuit_js || true
+          git commit -m "CI: add compiled circom artifacts" || echo "No changes to commit"
+          git push
