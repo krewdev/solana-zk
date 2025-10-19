@@ -1,0 +1,21 @@
+{
+  "name": "zk-circuit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node run_proof.mjs",
+    "build:circuit:docker": "docker run --rm -v \"$(pwd)\":/src -w /src ghcr.io/iden3/circom:2.0.0 circom circuit.circom --r1cs --wasm --sym --c",
+    "build:circuit:native": "circom circuit.circom --r1cs --wasm --sym --c",
+    "docker:build": "docker build -t hackathon/zk-circuit:latest .",
+    "docker:run": "docker run --rm hackathon/zk-circuit:latest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "circomlib": "^2.0.5",
+    "snarkjs": "^0.7.5"
+  }
+}
