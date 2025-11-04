@@ -4,6 +4,14 @@
 
 VeriSol enables developers to mint compressed NFTs (cNFTs) that cryptographically prove their GitHub contributions without revealing sensitive data. Built with Anchor, Bubblegum, and Circom.
 
+## 🎥 Demo
+
+[![VeriSol Demo](https://img.shields.io/badge/Watch%20Demo-Loom-00D2FF?style=for-the-badge&logo=loom)](https://www.loom.com/share/85f329ec60da4b4c807e1afb7964d32e)
+
+**[📺 Watch the full demonstration →](https://www.loom.com/share/85f329ec60da4b4c807e1afb7964d32e)**
+
+See VeriSol in action: wallet connection, GitHub OAuth, ZK proof generation, and compressed NFT minting on Solana devnet.
+
 ## 🚀 Quick Start
 
 ### Prerequisites
