@@ -1,0 +1,24 @@
+[toolchain]
+
+[features]
+resolution = true
+skip-lint = false
+
+[programs.localnet]
+aletheia_protocol = "69NQbWEHJE29u2qco87rWMEm2kjJJKhNEvdG8fg8zfTa"
+
+[programs.devnet]
+aletheia_protocol = "mUQFmu8w9jf4RGd5cHE6Y54y1B7Bou5an5Rvezu9GY6"
+
+[programs.mainnet]
+aletheia_protocol = "mUQFmu8w9jf4RGd5cHE6Y54y1B7Bou5an5Rvezu9GY6"
+
+[registry]
+url = "https://api.apr.dev"
+
+[provider]
+cluster = "Devnet"
+wallet = "~/.config/solana/id.json"
+
+[scripts]
+test = "npx ts-node --transpile-only tests/aletheia.ts"

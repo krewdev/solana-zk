@@ -1,0 +1,93 @@
+{
+  "version": "0.1.0",
+  "name": "aletheia_protocol",
+  "address": "mUQFmu8w9jf4RGd5cHE6Y54y1B7Bou5an5Rvezu9GY6",
+  "metadata": {
+  "description": "VeriSol - ZK proof verification with compressed NFT minting"
+  },
+  "instructions": [
+    {
+      "name": "verifyAndMint",
+      "accounts": [
+        {
+          "name": "payer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "merkleTree",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "treeAuthority",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "logWrapper",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "compressionProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "bubblegumProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "proofData",
+          "type": "bytes"
+        },
+        {
+          "name": "publicInputs",
+          "type": "bytes"
+        }
+      ]
+    }
+    ,
+    {
+      "name": "verifyProofOnly",
+      "accounts": [
+        {
+          "name": "payer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "proofData",
+          "type": "bytes"
+        },
+        {
+          "name": "publicInputs",
+          "type": "bytes"
+        }
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "InvalidProof",
+      "msg": "Invalid ZK proof provided"
+    }
+  ]
+}

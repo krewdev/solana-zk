@@ -1,0 +1,41 @@
+{
+    // General Settings
+    "workbench.iconTheme": "vscode-icons",
+    "editor.minimap.enabled": false,
+    "explorer.compactFolders": false,
+
+    // --- CRITICAL FOR PRODUCTIVITY ---
+    // Automatically format code on save
+    "editor.formatOnSave": true,
+    // Automatically fix ESLint errors on save
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+
+    // --- Formatter Configuration ---
+    // Set Prettier as the default formatter for front-end files
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    // Set rust-analyzer as the formatter for Rust files
+    "[rust]": {
+        "editor.defaultFormatter": "rust-lang.rust-analyzer"
+    },
+
+    // --- Language Specific Settings ---
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact"
+    ],
+    "files.associations": {
+        // Ensures JSX syntax highlighting in all JS/TS files
+        "*.js": "javascriptreact",
+        "*.ts": "typescriptreact"
+    }
+}

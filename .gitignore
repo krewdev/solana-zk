@@ -1,0 +1,47 @@
+node_modules/
+frontend/node_modules/
+
+# macOS cruft
+.DS_Store
+.DS_Store?
+
+# Node / Next.js build outputs
+.next/
+frontend/.next/
+
+# Anchor build output
+solana-program/target/
+
+# Logs
+npm-debug.log*
+*.log
+yarn-debug.log*
+pnpm-debug.log*
+
+# Environment files & secrets
+.env
+.env.*
+frontend/.env.local
+frontend/.env.local.*
+*keypair.json
+
+# Python virtualenvs
+venv/
+
+# Generated tree snapshots
+*-tree*.json
+tree-*.json
+
+# Prover byproducts
+zk-circuit/*.wtns
+zk-circuit/*.sym
+*.sym
+/input.json
+/proof.json
+/public.json
+
+# Local copies of packaged repos
+solana-zk/
+
+# ESLint cache
+frontend/.eslintcache
