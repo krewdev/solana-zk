@@ -8,6 +8,10 @@ export default NextAuth({
       clientSecret: process.env.GITHUB_SECRET!,
     }),
   ],
+  pages: {
+    signIn: '/', // Redirect to home page for sign in
+    error: '/', // Redirect to home page on error
+  },
   callbacks: {
     async jwt({ token, account, profile }) {
       if (account) {
