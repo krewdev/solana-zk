@@ -1,0 +1,3 @@
+[submodule "zk-circuit/circom-src"]
+    path = zk-circuit/circom-src
+    url = https://github.com/iden3/circom.git
